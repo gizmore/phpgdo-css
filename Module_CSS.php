@@ -29,7 +29,8 @@ final class Module_CSS extends GDO_Module
     }
 
     /**
-     * Not psr but gizmore bullshit autoloader :)
+     * Not psr but gizmore bullshit autoloader.
+     * 
      * @param string $classname
      */
     public function psr(string $classname)
@@ -39,7 +40,7 @@ final class Module_CSS extends GDO_Module
         {
             $classname = substr($classname, strlen($prefix));
             $path = str_replace('\\', '/', $classname);
-            $path = GDO_PATH . 'GDO/CSS/minify/src/' . $path . '.php';
+            $path = GDO_PATH . 'GDO/CSS/css-minify/src/' . $path . '.php';
             require $path;
         }
         

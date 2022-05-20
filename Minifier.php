@@ -1,11 +1,11 @@
 <?php
 namespace GDO\CSS;
 
-use MatthiasMullie\Minify\CSS;
 use GDO\Core\Module_Core;
 use GDO\File\FileUtil;
 use GDO\Util\Strings;
 use GDO\DB\Database;
+use MatthiasMullie\Minify\CSS;
 
 final class Minifier
 {

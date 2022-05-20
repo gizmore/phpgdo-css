@@ -5,9 +5,11 @@ use GDO\Core\GDO_Module;
 use GDO\Core\GDT_Checkbox;
 
 /**
- * CSS related settings and utilities.
+ * CSS related settings and toolchain utilities.
+ * 
  * @author gizmore
- * @version 6.10.5
+ * @version 7.0.1
+ * @since 6.10.5
  */
 final class Module_CSS extends GDO_Module
 {
@@ -19,7 +21,6 @@ final class Module_CSS extends GDO_Module
             GDT_Checkbox::make('minify_css')->initial('0'),
         ];
     }
-    
     public function cfgMinify() : string { return $this->getConfigVar('minify_css'); }
     
     public function includeMinifier() : void

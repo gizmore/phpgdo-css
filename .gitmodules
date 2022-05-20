@@ -1,0 +1,6 @@
+[submodule "path-converter"]
+	path = path-converter
+	url = https://github.com/matthiasmullie/path-converter
+[submodule "css-minify"]
+	path = css-minify
+	url = https://github.com/matthiasmullie/minify

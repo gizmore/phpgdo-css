@@ -8,7 +8,7 @@ use GDO\Core\GDT_Checkbox;
  * CSS related settings and toolchain utilities.
  * 
  * @author gizmore
- * @version 7.0.1
+ * @version 7.0.0
  * @since 6.10.5
  */
 final class Module_CSS extends GDO_Module

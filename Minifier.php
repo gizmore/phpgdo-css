@@ -1,34 +1,16 @@
 <?php
 namespace GDO\CSS;
 
+use GDO\Core\CSS;
 use GDO\Core\Module_Core;
 use GDO\Util\FileUtil;
 use GDO\Util\Strings;
 use GDO\DB\Database;
-use MatthiasMullie\Minify\CSS;
+use MatthiasMullie\Minify\CSS as Mullifier;
 
 final class Minifier
 {
-    public static $FILES = [];
-    public static $EXTERNAL = [];
-    public static $INLINE = '';
-    
-    private static $HASH = null;
-    
-    public static function addFile($path)
-    {
-        self::$FILES[] = $path;
-    }
-    
-    public static function addExternal($url)
-    {
-        self::$EXTERNAL[] = $url;
-    }
-    
-    public static function addInline($css)
-    {
-        self::$INLINE .= $css;
-    }
+    private static string $HASH;
     
     public static function assetPath($append='')
     {
@@ -64,7 +46,7 @@ final class Minifier
         
         $back = '';
 
-        foreach (self::$EXTERNAL as $path)
+        foreach (CSS::$EXTERNAL as $path)
         {
             $back .= sprintf("\t<link rel=\"stylesheet\" href=\"%s\" /> \n", $path);
         }
@@ -79,17 +61,17 @@ final class Minifier
     {
         $back = '';
         
-        foreach (self::$EXTERNAL as $path)
+        foreach (CSS::$EXTERNAL as $path)
         {
             $back .= sprintf("\t<link rel=\"stylesheet\" href=\"%s\" /> \n", $path);
         }
         
-        foreach (self::$FILES as $path)
+        foreach (CSS::$FILES as $path)
         {
             $back .= sprintf("\t<link rel=\"stylesheet\" href=\"%s\" /> \n", $path);
         }
         
-        if (self::$INLINE)
+        if (CSS::$INLINE)
         {
             $back .= sprintf("\t<style><!--\n\t%s\n\t--></style>\n",
                 self::$INLINE);
@@ -105,13 +87,13 @@ final class Minifier
         $dir = self::assetPath();
         FileUtil::createDir($dir);
         
-        $minifier = new CSS();
-        foreach (self::$FILES as $file)
+        $minifier = new Mullifier();
+        foreach (CSS::$FILES as $file)
         {
             $file = self::hrefToPath($file);
             $minifier->addFile($file);
         }
-        $minifier->add(self::$INLINE);
+        $minifier->add(CSS::$INLINE);
         $minifier->minify(self::assetPath('/css.css'));
     }
     
@@ -124,14 +106,14 @@ final class Minifier
     
     private static function getHash()
     {
-        if (self::$HASH === null)
+    	if (!isset(self::$HASH))
         {
             $data = '';
-            foreach (self::$FILES as $path)
+            foreach (CSS::$FILES as $path)
             {
                 $data .= $path;
             }
-            $data .= self::$INLINE;
+            $data .= CSS::$INLINE;
             $data .= Module_Core::instance()->nocacheVersion();
             self::$HASH = md5($data);
         }

@@ -15,8 +15,8 @@ use GDO\Core\CSS;
  */
 final class Module_CSS extends GDO_Module
 {
-
 	public int $priority = 100;
+	public string $license = 'MIT';
 
 	public function onLoadLanguage(): void
 	{

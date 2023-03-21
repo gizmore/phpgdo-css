@@ -1,20 +1,21 @@
 <?php
 namespace GDO\CSS;
 
+use GDO\Core\CSS;
 use GDO\Core\GDO_Module;
 use GDO\Core\GDT_Checkbox;
 use GDO\UI\GDT_Textarea;
-use GDO\Core\CSS;
 
 /**
  * CSS related settings and toolchain utilities.
  *
- * @author gizmore
  * @version 7.0.1
  * @since 6.10.5
+ * @author gizmore
  */
 final class Module_CSS extends GDO_Module
 {
+
 	public int $priority = 100;
 	public string $license = 'MIT';
 
@@ -31,6 +32,12 @@ final class Module_CSS extends GDO_Module
 	# #############
 	# ## Config ###
 	# #############
+
+	public function cfgCustomCSS(): string
+	{
+		return (string)$this->getConfigVar('custom_css');
+	}
+
 	public function getConfig(): array
 	{
 		return [
@@ -44,19 +51,15 @@ final class Module_CSS extends GDO_Module
 		return $this->getConfigVar('minify_css');
 	}
 
-	public function cfgCustomCSS(): string
-	{
-		return (string) $this->getConfigVar('custom_css');
-	}
-
 	# #############
 	# ## Loader ###
 	# #############
+
 	public function includeMinifier(): void
 	{
 		spl_autoload_register([
 			$this,
-			'psr'
+			'psr',
 		]);
 	}
 
